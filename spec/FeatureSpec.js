@@ -25,8 +25,15 @@ describe('Thermostat', function() {
     expect(function(){ thermostat.down(11); }).toThrowError('Minimum temperature is 10!');
   });
 
-  it('cannot increase temp above max temp', function() {
+  it('cannot increase temp above 25 in power saving mode', function() {
     expect(function(){ thermostat.up(6); }).toThrowError('Maximum temperature is exceeded!');
+  });
+
+  it('cannot increase temp above 32 with power saving mode off', function() {
+    thermostat.switchPowerSaving();
+    thermostat.up(12)
+    expect(thermostat._temp).toBe(32)
+    expect(function(){ thermostat.up(1); }).toThrowError('Maximum temperature is exceeded!')
   });
 
   it('has a power saving mode on by default', function() {
@@ -38,5 +45,16 @@ describe('Thermostat', function() {
     expect(thermostat._isPowerSaving).toBe(false);
     expect(thermostat.maxTemp()).toBe(32);
   });
+
+  it('has a reset function that set the temp to 20', function() {
+    thermostat.up(5)
+    thermostat.reset();
+    expect(thermostat._temp).toBe(20)
+  });
+
+  it('it retruns energy usage based on temp', function() {
+    expect(thermostat.energyUsage).toBe('medium-usage');
+  });
+
 
 });
