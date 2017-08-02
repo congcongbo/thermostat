@@ -36,13 +36,7 @@ describe('Thermostat', function() {
   it('can toggle between Power saving on and off', function() {
     thermostat.switchPowerSaving();
     expect(thermostat._isPowerSaving).toBe(false);
-    expect(thermostat._maxTemp).toBe(32);
-  });
-
-  it('when power saving is off max temp is 32', function() {
-    thermostat._isPowerSaving = false;
-    thermostat.changeMaxTemp();
-    expect(thermostat._maxTemp).toBe(32);
+    expect(thermostat.maxTemp()).toBe(32);
   });
 
 });
