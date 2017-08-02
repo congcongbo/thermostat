@@ -52,8 +52,13 @@ describe('Thermostat', function() {
     expect(thermostat._temp).toBe(20)
   });
 
-  it('it retruns energy usage based on temp', function() {
-    expect(thermostat.energyUsage).toBe('medium-usage');
+  it('it returns energy usage based on temp', function() {
+    thermostat.switchPowerSaving();
+    expect(thermostat.energyUsage()).toEqual('medium-usage');
+    thermostat.up(6);
+    expect(thermostat.energyUsage()).toEqual('high-usage');
+    thermostat.down(9);
+    expect(thermostat.energyUsage()).toEqual('low-usage');
   });
 
 
