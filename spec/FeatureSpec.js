@@ -11,9 +11,18 @@ describe('Thermostat', function() {
     expect(thermostat.temp).toBe(20);
   });
 
-  it('can increses the temp', function() {
+  it('can increase the temp', function() {
     thermostat.up(1)
     expect(thermostat.temp).toBe(21);
+  });
+
+  it('can decrease the temp', function() {
+    thermostat.down(3);
+    expect(thermostat.temp).toBe(17);
+  });
+
+  it('cannot decrease temp below 10', function() {
+    expect(function(){ thermostat.down(11); }).toThrowError('Minimum temperature is 10!');
   });
 
 });
