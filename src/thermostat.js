@@ -7,7 +7,7 @@ var Thermostat = function(){
 
 Thermostat.prototype.up = function(num){
   if (this._temp+num > this._maxTemp) {
-    throw new Error("Maximum temperature is 25!")
+    throw new Error("Maximum temperature is exceeded!")
   } else {
   this._temp += num;
   }
@@ -23,9 +23,19 @@ Thermostat.prototype.down = function(num){
 };
 
 Thermostat.prototype.switchPowerSaving = function(){
-  var change = this._isPowerSaving;
-  change = !change;
-  return this._isPowerSaving = change;
+  return this._isPowerSaving = !this._isPowerSaving;
+  //changeMaxTemp();
 };
 
-Thermostat.prototype.changeMaxTemp = function(){};
+Thermostat.prototype.changeMaxTemp = function(){
+  if (this._isPowerSaving === false) {
+    return this._maxTemp = 32;
+  } else {
+    return this._maxTemp = 25;
+  };
+};
+
+// thermostat = new Thermostat;
+// thermostat.switchPowerSaving();
+// //thermostat.changeMaxTemp();
+// console.log(thermostat);
